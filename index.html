@@ -12,7 +12,7 @@
       import data from 'Bloxd_Japanese.json' assert { type: 'json' };
       const categorySelect = document.getElementById("category")
       window.onload = () => {
-        categorySelect.innerHTML = Object.keys(data).map(name => `<option value=${name}>${name}</option>`).join("\n")
+        categorySelect.innerHTML = Object.keys(data).map(name => `<option value=${name}>${name}</option>`).join("")
       }
     </script>
   </body>
