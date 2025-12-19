@@ -4,16 +4,14 @@
     <meta charset="UTF-8" />
   </head>
   <body>
-    <from id="input">
+    <form id="input">
       <label for="category">カテゴリー</label>
       <select name="category "id="category"></select>
-    </from>
+    </form>
     <script type="module">
-      import data from 'Bloxd_Japanese.json' assert { type: 'json' };
+      import data from './Bloxd_Japanese.json' with { type: 'json' };
       const categorySelect = document.getElementById("category")
-      window.onload = () => {
-        categorySelect.innerHTML = Object.keys(data).map(name => `<option value=${name}>${name}</option>`).join("")
-      }
+      categorySelect.innerHTML = Object.keys(data).map(name => `<option value=${name}>${name}</option>`).join("")
     </script>
   </body>
 </html>
