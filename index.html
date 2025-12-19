@@ -6,12 +6,40 @@
   <body>
     <form id="input">
       <label for="category">カテゴリー</label>
-      <select name="category "id="category"></select>
+      <select name="category" id="category"></select>
+      <label for="searchWord">検索する単語(-区切り,どれか一つでもあればヒット)</label>
+      <input name="searchWord" type="text"/>
+      <input type="submit" value="検索"/>
     </form>
+    <div id="result"></div>
     <script type="module">
       import data from './Bloxd_Japanese.json' with { type: 'json' };
       const categorySelect = document.getElementById("category")
-      categorySelect.innerHTML = Object.keys(data).map(name => `<option value="${name}">${name}</option>`).join("")
+      categorySelect.innerHTML = `<option value="すべて">すべて</option>` + Object.keys(data).map(name => `<option value="${name}">${name}</option>`).join("")
+      const form = document.getElementById("input")
+      const result = document.getElementById("result")
+      form.addEventListener("submit",(event) => {
+        event.preventDefault()
+        const formData = new FormData(form);
+        let searchData = {}
+        if(formData.category === "すべて"){
+          for(const obj of Object.values(data)){
+            searchData = Object.assign(searchData,obj)
+          }
+        }
+        else{
+          searchData = data[formData.category]
+        }
+        const resultData = Object.entries(searchData).filter(([english,japanese]) => {
+          if(!formData.searchWord)return true;
+          for(const word of formData.searchWord.split("-")){
+            if(english.includes(searchWord) || japanese.includes(searchWord))return true
+          }
+          return false
+        })
+        const resultHTML = resultData.map(([english,japanese]) => `<p>${english}  :  ${japanese}</p>`).join("<br>")
+        result.innerHTML = resultHTML
+      })
     </script>
   </body>
 </html>
