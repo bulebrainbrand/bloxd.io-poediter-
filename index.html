@@ -11,7 +11,7 @@
     <script type="module">
       import data from './Bloxd_Japanese.json' with { type: 'json' };
       const categorySelect = document.getElementById("category")
-      categorySelect.innerHTML = Object.keys(data).map(name => `<option value=${name}>${name}</option>`).join("")
+      categorySelect.innerHTML = Object.keys(data).map(name => `<option value="${name}">${name}</option>`).join("")
     </script>
   </body>
 </html>
