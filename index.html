@@ -22,18 +22,18 @@
         event.preventDefault()
         const formData = new FormData(form);
         let searchData = {}
-        if(formData.category === "すべて"){
+        if(formData.get("category") === "すべて"){
           for(const obj of Object.values(data)){
             searchData = Object.assign(searchData,obj)
           }
         }
         else{
-          searchData = data[formData.category]
+          searchData = data[formData.get("category")]
         }
         const resultData = Object.entries(searchData).filter(([english,japanese]) => {
-          if(!formData.searchWord)return true;
-          for(const word of formData.searchWord.split("-")){
-            if(english.includes(searchWord) || japanese.includes(searchWord))return true
+          if(!formData.get("searchWord"))return true;
+          for(const word of formData.get("searchWord").split("-")){
+            if(english.includes(word) || japanese.includes(word))return true
           }
           return false
         })
